@@ -11,8 +11,9 @@ team = ['#galo', '#Galo', '#Atletico-MG', '#atletico mineiro']
 twitter = Twitter()
 db = Database(pd('tweets.db'))
 
-if not "tweets" in db:	
-	db.create("tweets", fields = (pk(), field('code', INTEGER, UNIQUE), field('text', STRING(140))))
+if not "tweets" in db:
+	schema = (pk(), field('code', INTEGER, index=UNIQUE), field('text', STRING(140)))
+	db.create("tweets", schema)
 
 #query in Twitter
 for hashtag in team:
