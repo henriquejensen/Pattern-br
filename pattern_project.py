@@ -1,9 +1,7 @@
 # coding: utf-8
 
 from pattern.web import Twitter
-from pattern.db import Database, SQLITE
-from pattern.db import pd
-from pattern.db import field, pk, INTEGER, UNIQUE, STRING
+from pattern.db import Database, SQLITE, pd, field, pk, INTEGER, UNIQUE, STRING
 from sqlite3 import IntegrityError
 
 twitter = Twitter()
@@ -21,8 +19,10 @@ def menu():
 	return escolha
 
 def trendtopics():
+	count=0
 	for trend in twitter.trends():
-		print trend
+		count+=1
+		print str(count) + u'º ' + trend
 	
 def busca():
 	sair = "n"
@@ -64,6 +64,10 @@ def main():
 		if escolha == 1:
 			busca()			
 		if escolha == 2:
-			trendtopics()			
+			trendtopics()
+		if escolha == 3:
+			pass
+		if escolha == 4:
+			pass
 			
 main()
