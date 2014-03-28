@@ -3,17 +3,20 @@
 from pattern.web import Twitter
 from pattern.db import Database, SQLITE, pd, field, pk, INTEGER, UNIQUE, STRING
 from sqlite3 import IntegrityError
+from pattern.search import search
 
 twitter = Twitter()
 db = Database(pd('tweets.db'))
 
 teams = []
+words = ['campeão|jogo|vitória|partida|campeonato']
 
 def menu():
 	print '''
-	1 - Digite o tweet da busca
-	2 - Veja os trendtopics do dia
-	3 - teste
+	1 - Veja os trendtopics do dia
+	2 - Digite o tweet da busca
+	3 - Analisar os tweets da busca
+	4 - 
 		'''
 	escolha = int(input(""))
 	return escolha
@@ -24,7 +27,7 @@ def trendtopics():
 		count+=1
 		print str(count) + u'º ' + trend
 	
-def busca():
+def search_tweet():
 	sair = "n"
 	while sair!="s":
 		team = raw_input("  Digite o tweet que deseja buscar ").replace(" ", '')
@@ -54,6 +57,15 @@ def busca():
 		print data[2]
 		print '-'*30
 		
+def analisador_tweets():
+	for tweet in db.tweets.filter():
+		teste = search(words, tweet[2])
+		if teste != '[]':
+			print tweet[2]
+	return
+	
+	
+	
 
 def main():
 	escolha="nao"
@@ -61,13 +73,13 @@ def main():
 	while escolha!="sim":
 		escolha = menu()
 		
-		if escolha == 1:
-			busca()			
 		if escolha == 2:
+			search_tweet()			
+		if escolha == 1:
 			trendtopics()
-		if escolha == 3:
-			pass
+		if escolha == 3:			
+			analisador_tweets()
 		if escolha == 4:
-			pass
+			print "Função em construção"
 			
 main()
