@@ -1,9 +1,10 @@
 # coding: utf-8
 
-from pattern.web import Twitter, URLTimeout
+from pattern.web import Twitter, Google, Facebook, URLTimeout
 from pattern.db import Database, pd, field, pk, INTEGER, UNIQUE, STRING
 from sqlite3 import IntegrityError
 from pattern.search import search
+import querys
 import os
 
 
@@ -208,6 +209,8 @@ if __name__ == '__main__':
     print '\t' + 30 * '-' + "\n\t\tBienvenido\n\t" + 30 * '-'
 
     twitter = Twitter()
+    google = Google()
+    face = Facebook()
     tweets = []
     words = []
     db = Database(pd('tweets.db'))
